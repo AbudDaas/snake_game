@@ -47,7 +47,7 @@ class SnakeGame:
         self.food = None
         self._place_food()
 
-        self.hart_score = 0
+        self.hart_score = 1
         self.hart= None
         self._place_hart()
         
@@ -100,7 +100,8 @@ class SnakeGame:
         
         if self.head == self.hart:
             self.hart_score += 1
-        
+            self._place_hart()
+
             
             
         # 5. update ui and clock
@@ -118,7 +119,7 @@ class SnakeGame:
             return True
         
         return False
-        
+
     def _update_ui(self):
         self.display.fill(BLACK)
         
@@ -134,7 +135,7 @@ class SnakeGame:
         pygame.display.flip()
         
         text = font.render("hart_score: " + str(self.hart_score), True, WHITE)
-        self.display.blit(text, [0, 0])
+        self.display.blit(text, [200, 0])
         pygame.display.flip()
 
     def _move(self, direction):
@@ -157,14 +158,16 @@ if __name__ == '__main__':
     
     # game loop
     while True:
-        game_over, score = game.play_step()
-        game_over, hart_score = game.play_step()
+        game_over, score, hart_score = game.play_step()
+        
         
         if game_over == True:
             break
         
     print('Final Score', score)
     print('Final hart_Score', hart_score)
+    
+ 
     
         
     pygame.quit()
